@@ -1,17 +1,19 @@
 import httpx
 from jsonschema import validate
+from referencing import Resource
+
 from core.contracts import USER_DATA_SCHEME
 
  #Создаем константы c адресом ендпоинта
 Base_URL = "https://reqres.in/"
-List_res = "api/unknown"
-Single_res = "api/unknown/2"
-Single_not = "api/unknown/23"
+List_resource = "api/unknown"
+Single_resource = "api/unknown/2"
+Resource_not_found = "api/unknown/23"
 
 
 ##Тест для list_resource
-def test_list_res ():
-    response = httpx.get(Base_URL + List_res)
+def test_list_resource ():
+    response = httpx.get(Base_URL + List_resource)
     assert response.status_code == 200
     data = response.json()['data']
 
@@ -20,17 +22,16 @@ def test_list_res ():
 
 
 #Тест для single_resource
-def test_single_res ():
-    response = httpx.get(Base_URL + Single_res)
+def test_single_resource ():
+    response = httpx.get(Base_URL + Single_resource)
     assert response.status_code == 200
     print(response)
     data = response.json()['data']
     validate (data, USER_DATA_SCHEME)
 
 
-##Тест для single_not
-def test_single_not ():
-   response = httpx.get(Base_URL + Single_not)
+##Тест для resource_not_found
+def test_resource_not_found ():
+   response = httpx.get(Base_URL + Resource_not_found)
    assert response.status_code == 404
-
 
