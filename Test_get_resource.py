@@ -1,7 +1,9 @@
 import httpx
 from jsonschema import validate
 from core.contracts import RESOURCE_DATA_SCHEME
+import allure
 
+from tests.Test_user_data import List_Users
 
 # Создаем константы c адресом ендпоинта
 Base_URL = "https://reqres.in/"
@@ -11,25 +13,45 @@ Resource_not_found = "api/unknown/23"
 
 
 ##Тест для list_resource
-def test_list_resource ():
-    response = httpx.get(Base_URL + List_resource)
-    assert response.status_code == 200
-    data = response.json()['data']
+@allure.suite('Проверка get запросов')
+@allure.title('Проверяем список ресурсов')
+def test_list_resource():
+    with allure.step(f'делаем запрос по адресу: {Base_URL + List_resource}'):
+        response = httpx.get(Base_URL + List_resource)
+
+    with allure.step('Проверяем код ответа'):
+        assert response.status_code == 200
+
+    with allure.step('Проверяем данные о ресурсах'):
+        data = response.json()['data']
 
     for item in data:
         validate(item, RESOURCE_DATA_SCHEME)
 
 
 # Тест для single_resource
+@allure.suite('Проверка get запросов')
+@allure.title('Проверяем один ресурс')
 def test_single_resource():
-    response = httpx.get(Base_URL + Single_resource)
-    assert response.status_code == 200
-    print(response)
+    with allure.step(f'делаем запрос по адресу: {Base_URL + Single_resource}'):
+        response = httpx.get(Base_URL + Single_resource)
+
+    with allure.step('Проверяем код ответа'):
+        assert response.status_code == 200
+
+    with allure.step('Проверяем данные о ресурсе'):
+        data = response.json()['data']
+
     data = response.json()['data']
     validate(data, RESOURCE_DATA_SCHEME)
 
 
 ##Тест для resource_not_found
+@allure.suite('Проверка get запросов')
+@allure.title('Проверяем что ресурс не найден')
 def test_resource_not_found():
-    response = httpx.get(Base_URL + Resource_not_found)
-    assert response.status_code == 404
+    with allure.step(f'делаем запрос по адресу: {Base_URL + Resource_not_found}'):
+        response = httpx.get(Base_URL + Resource_not_found)
+
+    with allure.step('Проверяем код ответа'):
+        assert response.status_code == 404
