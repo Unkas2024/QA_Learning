@@ -11,49 +11,47 @@ List_resource = "api/unknown"
 Single_resource = "api/unknown/2"
 Resource_not_found = "api/unknown/23"
 
+
 ##Тест для list_resource
 @allure.suite('Проверка get запросов')
-@allure.title('Проверяем список пользователей')
-
-def test_list_resource ():
-    with allure.step(f'делаем запрос по адресу: {Base_URL + List_Users}'):
-     response = httpx.get(Base_URL + List_resource)
+@allure.title('Проверяем список ресурсов')
+def test_list_resource():
+    with allure.step(f'делаем запрос по адресу: {Base_URL + List_resource}'):
+        response = httpx.get(Base_URL + List_resource)
 
     with allure.step('Проверяем код ответа'):
-     assert response.status_code == 200
+        assert response.status_code == 200
 
-    with allure.step ('Проверяем данные пользователей'):
-     data = response.json()['data']
+    with allure.step('Проверяем данные о ресурсах'):
+        data = response.json()['data']
 
     for item in data:
         validate(item, RESOURCE_DATA_SCHEME)
 
+
 # Тест для single_resource
 @allure.suite('Проверка get запросов')
-@allure.title('Проверяем одного пользователя')
-
+@allure.title('Проверяем один ресурс')
 def test_single_resource():
     with allure.step(f'делаем запрос по адресу: {Base_URL + Single_resource}'):
-     response = httpx.get(Base_URL + Single_resource)
+        response = httpx.get(Base_URL + Single_resource)
 
     with allure.step('Проверяем код ответа'):
-     assert response.status_code == 200
+        assert response.status_code == 200
 
-    with allure.step('Проверяем данные пользователя'):
+    with allure.step('Проверяем данные о ресурсе'):
         data = response.json()['data']
 
     data = response.json()['data']
     validate(data, RESOURCE_DATA_SCHEME)
 
+
 ##Тест для resource_not_found
 @allure.suite('Проверка get запросов')
-@allure.title('Проверяем что пользователь не найден')
-
+@allure.title('Проверяем что ресурс не найден')
 def test_resource_not_found():
     with allure.step(f'делаем запрос по адресу: {Base_URL + Resource_not_found}'):
-     response = httpx.get(Base_URL + Resource_not_found)
+        response = httpx.get(Base_URL + Resource_not_found)
 
     with allure.step('Проверяем код ответа'):
-     assert response.status_code == 404
-     
-
+        assert response.status_code == 404
