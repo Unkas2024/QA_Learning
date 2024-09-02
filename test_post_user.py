@@ -28,7 +28,6 @@ def test_update_user():
     }
 
     response = httpx.put(Base_URL + Update_user, json=body)
-#    print(response.json())
     assert response.status_code == 200
 
     validate(response.json(), CREATED_USER_SCHEME)
@@ -36,7 +35,6 @@ def test_update_user():
     creation_date = response.json()['updatedAt'].replace('T', ' ')
     current_date = str(datetime.datetime.utcnow())
     assert creation_date[0:16] == current_date[0:16]
-#    print(creation_date)
 
     assert response.json()['name'] == body['name']
     assert response.json()['job'] == body['job']
@@ -49,7 +47,6 @@ def test_update_all_user():
     }
 
     response = httpx.patch(Base_URL + Update_user, json=body)
-#    print(response.json())
     assert response.status_code == 200
 
     validate(response.json(), CREATED_USER_SCHEME)
@@ -62,4 +59,4 @@ def test_update_all_user():
 
 def test_delete_user():
     response = httpx.delete(Base_URL + Update_user)
-    print(response.status_code)
+
