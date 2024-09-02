@@ -22,3 +22,12 @@ USER_DATA_SCHEME = {
     },
     "required" : ["id", "email", "first_name", "last_name", "avatar"]
 }
+
+CREATED_USER_SCHEME = {
+    "type" : "object",
+    "properties" : {
+        "name" : {"type": "string"},
+        "job" : {"type": "string"},
+    },
+    "required" : ["name", "job"]
+}
