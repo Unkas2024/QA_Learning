@@ -31,3 +31,12 @@ CREATED_USER_SCHEME = {
     },
     "required" : ["name", "job"]
 }
+
+
+LOGIN_USER_SCHEME = {
+    "type" : "object",
+    "properties" : {
+        "token" : {"type": "string"},
+    },
+    "required" : ["token"]
+}
