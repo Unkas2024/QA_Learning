@@ -57,6 +57,6 @@ def test_update_all_user():
     assert response.json()['name'] == body['name']
     assert response.json()['job'] == body['job']
 
+
 def test_delete_user():
     response = httpx.delete(Base_URL + Update_user)
-
